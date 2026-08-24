@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: #1b1f27;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container-page {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #E50914;
+  font-size: 0.8rem;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #062A5E;
+  font-size: 0.78rem;
+}
+
+.btn-red {
+  background-color: #E50914;
+  color: #fff;
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-red:hover {
+  background-color: #c30712;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(229, 9, 20, 0.5);
+}
+
+.btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+.btn-outline:hover {
+  background-color: #fff;
+  color: #062A5E;
+  transform: translateY(-2px);
+}
+
+.btn-navy {
+  background-color: #062A5E;
+  color: #fff;
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-navy:hover {
+  background-color: #031A3A;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(6, 42, 94, 0.5);
+}
+
+.route-line {
+  background-image: repeating-linear-gradient(
+    to right,
+    #E50914 0,
+    #E50914 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  height: 2px;
+}
