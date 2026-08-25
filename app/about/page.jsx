@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, Handshake, BadgeCheck, MessageSquare, Users, ArrowRight } from "lucide-react";
+import { ShieldCheck, Handshake, BadgeCheck, MessageSquare, Users, ArrowRight, Building2 } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
@@ -84,6 +84,30 @@ export default function AboutPage() {
               transportation services while building long-term relationships
               through communication, reliability, and integrity.
             </p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-white py-20">
+        <div className="container-page">
+          <Reveal>
+            <div className="flex flex-col items-center rounded-sm border border-slate-200 bg-bg px-6 py-12 text-center sm:px-12">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-navy/10 text-navy">
+                <Building2 size={26} />
+              </span>
+              <span className="section-label mt-5">Corporate &amp; Contract Delivery</span>
+              <h2 className="mt-3 max-w-xl font-heading text-2xl font-bold uppercase leading-tight text-deep-navy sm:text-3xl">
+                Trusted by Companies &amp; Corporations
+              </h2>
+              <span className="mt-4 h-1 w-16 rounded-full bg-brand-red" />
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted">
+                In addition to contractor and business deliveries, Arrive Safely
+                also takes on contract delivery work for companies and
+                corporations — including Amazon, Walmart, and other national
+                retailers. If your business needs a dependable contracted
+                delivery partner, we&apos;re ready to talk.
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>

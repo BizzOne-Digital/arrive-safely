@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Phone, Mail, Facebook, Instagram, Linkedin, Truck } from "lucide-react";
+import Image from "next/image";
+import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -22,8 +23,8 @@ export default function Footer() {
       <div className="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-white/10">
-              <Truck size={20} className="text-white" />
+            <span className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center">
+              <Image src="/logo.png" alt="Arrive Safely logo" fill className="object-contain" sizes="44px" />
             </span>
             <span className="font-heading text-lg font-bold uppercase text-white">
               Arrive <span className="text-brand-red">Safely</span>
@@ -32,6 +33,10 @@ export default function Footer() {
           <p className="mt-4 max-w-xs text-sm leading-relaxed">
             Reliable trucking and contractor delivery solutions focused on safety,
             professionalism, and dependable service.
+          </p>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed">
+            We also handle contract delivery work for companies and
+            corporations — including Amazon, Walmart, and more.
           </p>
           <div className="mt-6 flex items-center gap-3">
             {[Facebook, Instagram, Linkedin].map((Icon, i) => (
@@ -90,6 +95,10 @@ export default function Footer() {
               >
                 <Mail size={15} /> arrivesafelyllc@gmail.com
               </a>
+            </li>
+            <li className="flex items-start gap-2">
+              <MapPin size={15} className="mt-0.5 flex-shrink-0" />
+              <span>390 Shelton Ave, Shelton, CT 06484</span>
             </li>
           </ul>
         </div>

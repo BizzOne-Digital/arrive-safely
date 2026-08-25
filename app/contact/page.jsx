@@ -1,4 +1,4 @@
-import { Phone, Mail, Headset } from "lucide-react";
+import { Phone, Mail, Headset, MapPin } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 
@@ -7,6 +7,8 @@ export const metadata = {
   description:
     "Contact Arrive Safely for trucking, contractor delivery, and logistics support. Call 786-317-2798 or send us a message.",
 };
+
+const ADDRESS = "390 Shelton Ave, Shelton, CT 06484";
 
 const cards = [
   {
@@ -20,6 +22,12 @@ const cards = [
     title: "Email",
     lines: ["arrivesafelyllc@gmail.com"],
     href: "mailto:arrivesafelyllc@gmail.com",
+  },
+  {
+    icon: MapPin,
+    title: "Address",
+    lines: [ADDRESS],
+    href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`,
   },
   {
     icon: Headset,
@@ -43,7 +51,7 @@ export default function ContactPage() {
       />
 
       <section className="bg-bg py-20">
-        <div className="container-page grid gap-6 sm:grid-cols-3">
+        <div className="container-page grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map(({ icon: Icon, title, lines, href }) => (
             <div key={title} className="rounded-sm border border-slate-200 bg-white p-8 text-center">
               <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-navy/10 text-navy">
@@ -67,6 +75,20 @@ export default function ContactPage() {
 
         <div className="container-page mt-14">
           <ContactForm />
+        </div>
+
+        <div className="container-page mt-14">
+          <div className="overflow-hidden rounded-sm border border-slate-200 shadow-sm">
+            <iframe
+              title="Arrive Safely location"
+              src={`https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&output=embed`}
+              width="100%"
+              height="380"
+              loading="lazy"
+              className="block w-full border-0"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </section>
     </>
