@@ -96,7 +96,7 @@ export default function Header() {
           <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-0 flex h-full w-[82%] max-w-sm flex-col bg-deep-navy p-6">
             <div className="flex items-center justify-between">
-              <Logo light />
+              <Logo />
               <button
                 className="rounded-sm p-2 text-white"
                 onClick={() => setOpen(false)}
