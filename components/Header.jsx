@@ -34,8 +34,8 @@ export default function Header() {
       <div className="hidden bg-deep-navy text-white/80 md:block">
         <div className="container-page flex h-10 items-center justify-between text-xs">
           <div className="flex items-center gap-6">
-            <a href="tel:7863172798" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Phone size={13} /> 786-317-2798
+            <a href="tel:14752081499" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Phone size={13} /> +1 475 208-1499
             </a>
             <a
               href="mailto:arrivesafelyllc@gmail.com"
@@ -126,8 +126,8 @@ export default function Header() {
               >
                 Book Now
               </Link>
-              <a href="tel:7863172798" className="flex items-center justify-center gap-2 text-white/80">
-                <Phone size={16} /> 786-317-2798
+              <a href="tel:14752081499" className="flex items-center justify-center gap-2 text-white/80">
+                <Phone size={16} /> +1 475 208-1499
               </a>
             </div>
           </div>

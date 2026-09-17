@@ -5,7 +5,7 @@ import ContactForm from "@/components/ContactForm";
 export const metadata = {
   title: "Contact",
   description:
-    "Contact Arrive Safely for trucking, contractor delivery, and logistics support. Call 786-317-2798 or send us a message.",
+    "Contact Arrive Safely for trucking, contractor delivery, and logistics support. Call +1 475 208-1499 or send us a message.",
 };
 
 const ADDRESS = "390 Shelton Ave, Shelton, CT 06484";
@@ -14,8 +14,8 @@ const cards = [
   {
     icon: Phone,
     title: "Phone",
-    lines: ["786-317-2798"],
-    href: "tel:7863172798",
+    lines: ["+1 475 208-1499"],
+    href: "tel:14752081499",
   },
   {
     icon: Mail,

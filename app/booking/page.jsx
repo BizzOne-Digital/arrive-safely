@@ -39,13 +39,13 @@ export default function BookingPage() {
               <span className="mt-2 block h-1 w-10 bg-brand-red" />
               <div className="mt-5 space-y-4 text-sm">
                 <a
-                  href="tel:7863172798"
+                  href="tel:14752081499"
                   className="flex items-center gap-3 text-deep-navy transition-colors hover:text-brand-red"
                 >
                   <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-navy/10 text-navy">
                     <Phone size={18} />
                   </span>
-                  786-317-2798
+                  +1 475 208-1499
                 </a>
                 <a
                   href="mailto:arrivesafelyllc@gmail.com"

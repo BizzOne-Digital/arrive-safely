@@ -30,10 +30,10 @@ export default function CTASection({
               {primaryLabel}
             </Link>
             <a
-              href="tel:7863172798"
+              href="tel:14752081499"
               className="btn-outline inline-flex items-center gap-2 rounded-sm px-8 py-4 text-sm"
             >
-              <Phone size={16} /> Call 786-317-2798
+              <Phone size={16} /> Call +1 475 208-1499
             </a>
           </div>
         </div>
