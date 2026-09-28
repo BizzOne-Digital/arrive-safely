@@ -1,7 +1,5 @@
 import { Oswald, Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const heading = Oswald({
   subsets: ["latin"],
@@ -29,11 +27,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${heading.variable} ${body.variable}`}>
-      <body className="font-body antialiased">
-        <Header />
-        <main>{children}</main>
-        <Footer />
-      </body>
+      <body className="font-body antialiased">{children}</body>
     </html>
   );
 }

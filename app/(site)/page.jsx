@@ -14,6 +14,8 @@ export const metadata = {
     "Professional trucking, contractor delivery, freight transportation, and logistics support from Arrive Safely.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   return (
     <>
