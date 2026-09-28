@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Plus, Pencil, Trash2, X } from "lucide-react";
 import AdminPageHeader from "@/components/admin/AdminPageHeader";
+import LocalImageField from "@/components/admin/LocalImageField";
 import { SERVICE_ICON_NAMES, getServiceIcon } from "@/lib/serviceIcons";
 
 const emptyForm = {
@@ -232,18 +233,12 @@ export default function AdminServicesPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="mb-1.5 block font-heading text-xs font-semibold uppercase text-deep-navy">
-                  Image Path or URL
-                </label>
-                <input
-                  required
-                  value={form.image}
-                  onChange={(e) => setForm({ ...form, image: e.target.value })}
-                  placeholder="/ser1.png or https://..."
-                  className="w-full rounded-sm border border-slate-300 px-3 py-2.5 text-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
-                />
-              </div>
+              <LocalImageField
+                label="Service Image"
+                value={form.image}
+                onChange={(url) => setForm({ ...form, image: url })}
+                folder="services"
+              />
 
               <label className="flex items-center gap-2 text-sm text-deep-navy">
                 <input

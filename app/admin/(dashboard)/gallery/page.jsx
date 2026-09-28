@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Plus, Trash2, X } from "lucide-react";
 import AdminPageHeader from "@/components/admin/AdminPageHeader";
+import LocalImageField from "@/components/admin/LocalImageField";
 
 const emptyForm = { label: "", image: "", order: 0 };
 
@@ -131,18 +132,12 @@ export default function AdminGalleryPage() {
                 />
               </div>
 
-              <div>
-                <label className="mb-1.5 block font-heading text-xs font-semibold uppercase text-deep-navy">
-                  Image Path or URL
-                </label>
-                <input
-                  required
-                  value={form.image}
-                  onChange={(e) => setForm({ ...form, image: e.target.value })}
-                  placeholder="/hero.png or https://..."
-                  className="w-full rounded-sm border border-slate-300 px-3 py-2.5 text-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
-                />
-              </div>
+              <LocalImageField
+                label="Image"
+                value={form.image}
+                onChange={(url) => setForm({ ...form, image: url })}
+                folder="gallery"
+              />
 
               <div>
                 <label className="mb-1.5 block font-heading text-xs font-semibold uppercase text-deep-navy">

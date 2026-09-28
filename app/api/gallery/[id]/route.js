@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongodb";
 import GalleryImage from "@/models/GalleryImage";
 import { isAuthed } from "@/lib/auth";
+import { deleteUploadIfLocal } from "@/lib/deleteUpload";
 
 export async function DELETE(request, ctx) {
   if (!isAuthed(request)) {
@@ -15,6 +16,8 @@ export async function DELETE(request, ctx) {
   if (!image) {
     return NextResponse.json({ error: "Image not found" }, { status: 404 });
   }
+
+  await deleteUploadIfLocal(image.image);
 
   return NextResponse.json({ ok: true });
 }
