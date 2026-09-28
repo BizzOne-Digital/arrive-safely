@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Phone, Mail, Clock, Menu, X, Facebook, Instagram, Linkedin } from "lucide-react";
 import Logo from "./Logo";
+import { telHref } from "@/lib/phone";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -13,7 +14,16 @@ const NAV_LINKS = [
   { href: "/booking", label: "Booking" },
 ];
 
-export default function Header() {
+const DEFAULT_SETTINGS = {
+  phone: "+1 475 208-1499",
+  email: "arrivesafelyllc@gmail.com",
+  trustMessage: "Trusted Transportation & Delivery Solutions",
+  facebookUrl: "",
+  instagramUrl: "",
+  linkedinUrl: "",
+};
+
+export default function Header({ settings = DEFAULT_SETTINGS }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -34,25 +44,37 @@ export default function Header() {
       <div className="hidden bg-deep-navy text-white/80 md:block">
         <div className="container-page flex h-10 items-center justify-between text-xs">
           <div className="flex items-center gap-6">
-            <a href="tel:14752081499" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Phone size={13} /> +1 475 208-1499
+            <a href={telHref(settings.phone)} className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Phone size={13} /> {settings.phone}
             </a>
             <a
-              href="mailto:arrivesafelyllc@gmail.com"
+              href={`mailto:${settings.email}`}
               className="flex items-center gap-1.5 hover:text-white transition-colors"
             >
-              <Mail size={13} /> arrivesafelyllc@gmail.com
+              <Mail size={13} /> {settings.email}
             </a>
           </div>
           <div className="flex items-center gap-6">
-            <span className="hidden lg:inline">Trusted Transportation &amp; Delivery Solutions</span>
+            <span className="hidden lg:inline">{settings.trustMessage}</span>
             <span className="flex items-center gap-1.5 font-semibold text-white">
               <Clock size={13} /> 24/7 Support
             </span>
             <div className="flex items-center gap-3 border-l border-white/15 pl-4">
-              <Facebook size={14} className="hover:text-brand-red transition-colors cursor-pointer" />
-              <Instagram size={14} className="hover:text-brand-red transition-colors cursor-pointer" />
-              <Linkedin size={14} className="hover:text-brand-red transition-colors cursor-pointer" />
+              {settings.facebookUrl && (
+                <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <Facebook size={14} className="hover:text-brand-red transition-colors cursor-pointer" />
+                </a>
+              )}
+              {settings.instagramUrl && (
+                <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Instagram size={14} className="hover:text-brand-red transition-colors cursor-pointer" />
+                </a>
+              )}
+              {settings.linkedinUrl && (
+                <a href={settings.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <Linkedin size={14} className="hover:text-brand-red transition-colors cursor-pointer" />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -126,8 +148,8 @@ export default function Header() {
               >
                 Book Now
               </Link>
-              <a href="tel:14752081499" className="flex items-center justify-center gap-2 text-white/80">
-                <Phone size={16} /> +1 475 208-1499
+              <a href={telHref(settings.phone)} className="flex items-center justify-center gap-2 text-white/80">
+                <Phone size={16} /> {settings.phone}
               </a>
             </div>
           </div>

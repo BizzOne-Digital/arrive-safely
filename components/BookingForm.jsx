@@ -9,10 +9,36 @@ const labelClass = "mb-1.5 block font-heading text-xs font-semibold uppercase tr
 
 export default function BookingForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setSubmitted(true);
+    setError("");
+    setLoading(true);
+
+    const formData = new FormData(e.target);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "Something went wrong. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+      setLoading(false);
+    }
   }
 
   if (submitted) {
@@ -109,8 +135,10 @@ export default function BookingForm() {
         </div>
       </div>
 
-      <button type="submit" className="btn-red mt-8 inline-flex items-center gap-2 rounded-sm px-9 py-4 text-sm">
-        Submit Delivery Request <Send size={16} />
+      {error && <p className="mt-4 text-sm text-brand-red">{error}</p>}
+
+      <button type="submit" disabled={loading} className="btn-red mt-8 inline-flex items-center gap-2 rounded-sm px-9 py-4 text-sm disabled:opacity-60">
+        {loading ? "Submitting..." : "Submit Delivery Request"} <Send size={16} />
       </button>
     </form>
   );

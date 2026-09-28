@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongodb";
-import Service from "@/models/Service";
+import Booking from "@/models/Booking";
 import { isAuthed } from "@/lib/auth";
 
 export async function PATCH(request, ctx) {
@@ -12,24 +12,17 @@ export async function PATCH(request, ctx) {
   await dbConnect();
   const data = await request.json();
 
-  const service = await Service.findByIdAndUpdate(
+  const booking = await Booking.findByIdAndUpdate(
     id,
-    {
-      title: data.title,
-      description: data.description,
-      icon: data.icon,
-      image: data.image,
-      order: Number(data.order) || 0,
-      showOnHome: data.showOnHome !== false,
-    },
+    { status: data.status },
     { new: true, runValidators: true }
   );
 
-  if (!service) {
-    return NextResponse.json({ error: "Service not found" }, { status: 404 });
+  if (!booking) {
+    return NextResponse.json({ error: "Booking not found" }, { status: 404 });
   }
 
-  return NextResponse.json({ service });
+  return NextResponse.json({ booking });
 }
 
 export async function DELETE(request, ctx) {
@@ -39,10 +32,10 @@ export async function DELETE(request, ctx) {
 
   const { id } = await ctx.params;
   await dbConnect();
-  const service = await Service.findByIdAndDelete(id);
+  const booking = await Booking.findByIdAndDelete(id);
 
-  if (!service) {
-    return NextResponse.json({ error: "Service not found" }, { status: 404 });
+  if (!booking) {
+    return NextResponse.json({ error: "Booking not found" }, { status: 404 });
   }
 
   return NextResponse.json({ ok: true });

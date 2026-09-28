@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongodb";
-import Service from "@/models/Service";
+import GalleryImage from "@/models/GalleryImage";
 import { isAuthed } from "@/lib/auth";
 
 export async function GET() {
   await dbConnect();
-  const services = await Service.find().sort({ order: 1, createdAt: 1 }).lean();
-  return NextResponse.json({ services });
+  const images = await GalleryImage.find().sort({ order: 1, createdAt: 1 }).lean();
+  return NextResponse.json({ images });
 }
 
 export async function POST(request) {
@@ -17,21 +17,18 @@ export async function POST(request) {
   await dbConnect();
   const data = await request.json();
 
-  if (!data.title || !data.description || !data.image) {
+  if (!data.label || !data.image) {
     return NextResponse.json(
-      { error: "Title, description, and image are required" },
+      { error: "Label and image are required" },
       { status: 400 }
     );
   }
 
-  const service = await Service.create({
-    title: data.title,
-    description: data.description,
-    icon: data.icon || "Truck",
+  const image = await GalleryImage.create({
+    label: data.label,
     image: data.image,
     order: Number(data.order) || 0,
-    showOnHome: data.showOnHome !== false,
   });
 
-  return NextResponse.json({ service }, { status: 201 });
+  return NextResponse.json({ image }, { status: 201 });
 }

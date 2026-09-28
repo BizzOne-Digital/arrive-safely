@@ -1,6 +1,10 @@
 import { Phone, Mail, ShieldCheck, CalendarDays, Headset } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import BookingForm from "@/components/BookingForm";
+import { getSettings } from "@/lib/getSettings";
+import { telHref } from "@/lib/phone";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Booking",
@@ -14,7 +18,9 @@ const sidebarPoints = [
   { icon: Headset, text: "Professional support" },
 ];
 
-export default function BookingPage() {
+export default async function BookingPage() {
+  const settings = await getSettings();
+
   return (
     <>
       <PageHero
@@ -39,22 +45,22 @@ export default function BookingPage() {
               <span className="mt-2 block h-1 w-10 bg-brand-red" />
               <div className="mt-5 space-y-4 text-sm">
                 <a
-                  href="tel:14752081499"
+                  href={telHref(settings.phone)}
                   className="flex items-center gap-3 text-deep-navy transition-colors hover:text-brand-red"
                 >
                   <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-navy/10 text-navy">
                     <Phone size={18} />
                   </span>
-                  +1 475 208-1499
+                  {settings.phone}
                 </a>
                 <a
-                  href="mailto:arrivesafelyllc@gmail.com"
+                  href={`mailto:${settings.email}`}
                   className="flex items-center gap-3 text-deep-navy transition-colors hover:text-brand-red"
                 >
                   <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-navy/10 text-navy">
                     <Mail size={18} />
                   </span>
-                  arrivesafelyllc@gmail.com
+                  {settings.email}
                 </a>
               </div>
             </div>

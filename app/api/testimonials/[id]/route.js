@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongodb";
-import Service from "@/models/Service";
+import Testimonial from "@/models/Testimonial";
 import { isAuthed } from "@/lib/auth";
 
 export async function PATCH(request, ctx) {
@@ -12,24 +12,23 @@ export async function PATCH(request, ctx) {
   await dbConnect();
   const data = await request.json();
 
-  const service = await Service.findByIdAndUpdate(
+  const testimonial = await Testimonial.findByIdAndUpdate(
     id,
     {
-      title: data.title,
-      description: data.description,
-      icon: data.icon,
-      image: data.image,
+      name: data.name,
+      company: data.company,
+      quote: data.quote,
+      published: data.published !== false,
       order: Number(data.order) || 0,
-      showOnHome: data.showOnHome !== false,
     },
     { new: true, runValidators: true }
   );
 
-  if (!service) {
-    return NextResponse.json({ error: "Service not found" }, { status: 404 });
+  if (!testimonial) {
+    return NextResponse.json({ error: "Testimonial not found" }, { status: 404 });
   }
 
-  return NextResponse.json({ service });
+  return NextResponse.json({ testimonial });
 }
 
 export async function DELETE(request, ctx) {
@@ -39,10 +38,10 @@ export async function DELETE(request, ctx) {
 
   const { id } = await ctx.params;
   await dbConnect();
-  const service = await Service.findByIdAndDelete(id);
+  const testimonial = await Testimonial.findByIdAndDelete(id);
 
-  if (!service) {
-    return NextResponse.json({ error: "Service not found" }, { status: 404 });
+  if (!testimonial) {
+    return NextResponse.json({ error: "Testimonial not found" }, { status: 404 });
   }
 
   return NextResponse.json({ ok: true });

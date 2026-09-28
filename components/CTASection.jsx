@@ -1,14 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Phone } from "lucide-react";
+import { telHref } from "@/lib/phone";
+import { getSettings } from "@/lib/getSettings";
 
-export default function CTASection({
+export default async function CTASection({
   image,
   heading,
   description,
   primaryHref = "/booking",
   primaryLabel = "Request Service",
 }) {
+  const settings = await getSettings();
+
   return (
     <section className="relative overflow-hidden py-24">
       <Image
@@ -30,10 +34,10 @@ export default function CTASection({
               {primaryLabel}
             </Link>
             <a
-              href="tel:14752081499"
+              href={telHref(settings.phone)}
               className="btn-outline inline-flex items-center gap-2 rounded-sm px-8 py-4 text-sm"
             >
-              <Phone size={16} /> Call +1 475 208-1499
+              <Phone size={16} /> Call {settings.phone}
             </a>
           </div>
         </div>

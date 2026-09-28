@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
+import { telHref } from "@/lib/phone";
+import { getServices } from "@/lib/getServices";
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -10,14 +12,23 @@ const quickLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-const services = [
-  "Contractor Delivery",
-  "Delivery Contractor",
-  "Freight Transportation",
-  "Logistics Support",
-];
+const DEFAULT_SETTINGS = {
+  phone: "+1 475 208-1499",
+  email: "arrivesafelyllc@gmail.com",
+  address: "390 Shelton Ave, Shelton, CT 06484",
+  facebookUrl: "",
+  instagramUrl: "",
+  linkedinUrl: "",
+};
 
-export default function Footer() {
+export default async function Footer({ settings = DEFAULT_SETTINGS }) {
+  const services = await getServices({ homeOnly: true });
+  const socialLinks = [
+    { Icon: Facebook, url: settings.facebookUrl, label: "Facebook" },
+    { Icon: Instagram, url: settings.instagramUrl, label: "Instagram" },
+    { Icon: Linkedin, url: settings.linkedinUrl, label: "LinkedIn" },
+  ].filter((s) => s.url);
+
   return (
     <footer className="bg-deep-navy text-white/70">
       <div className="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
@@ -38,18 +49,22 @@ export default function Footer() {
             We also handle contract delivery work for companies and
             corporations — including Amazon, Walmart, and more.
           </p>
-          <div className="mt-6 flex items-center gap-3">
-            {[Facebook, Instagram, Linkedin].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                aria-label="Social link"
-                className="flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 transition-colors hover:border-brand-red hover:text-brand-red"
-              >
-                <Icon size={16} />
-              </a>
-            ))}
-          </div>
+          {socialLinks.length > 0 && (
+            <div className="mt-6 flex items-center gap-3">
+              {socialLinks.map(({ Icon, url, label }) => (
+                <a
+                  key={label}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 transition-colors hover:border-brand-red hover:text-brand-red"
+                >
+                  <Icon size={16} />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         <div>
@@ -73,7 +88,7 @@ export default function Footer() {
           </h3>
           <ul className="mt-4 space-y-3 text-sm">
             {services.map((s) => (
-              <li key={s}>{s}</li>
+              <li key={s.id}>{s.title}</li>
             ))}
           </ul>
         </div>
@@ -84,21 +99,21 @@ export default function Footer() {
           </h3>
           <ul className="mt-4 space-y-3 text-sm">
             <li>
-              <a href="tel:14752081499" className="flex items-center gap-2 transition-colors hover:text-brand-red">
-                <Phone size={15} /> +1 475 208-1499
+              <a href={telHref(settings.phone)} className="flex items-center gap-2 transition-colors hover:text-brand-red">
+                <Phone size={15} /> {settings.phone}
               </a>
             </li>
             <li>
               <a
-                href="mailto:arrivesafelyllc@gmail.com"
+                href={`mailto:${settings.email}`}
                 className="flex items-center gap-2 transition-colors hover:text-brand-red"
               >
-                <Mail size={15} /> arrivesafelyllc@gmail.com
+                <Mail size={15} /> {settings.email}
               </a>
             </li>
             <li className="flex items-start gap-2">
               <MapPin size={15} className="mt-0.5 flex-shrink-0" />
-              <span>390 Shelton Ave, Shelton, CT 06484</span>
+              <span>{settings.address}</span>
             </li>
           </ul>
         </div>

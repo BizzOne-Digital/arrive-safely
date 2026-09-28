@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { LogOut, Plus, Pencil, Trash2, X } from "lucide-react";
+import { Plus, Pencil, Trash2, X } from "lucide-react";
+import AdminPageHeader from "@/components/admin/AdminPageHeader";
 import { SERVICE_ICON_NAMES, getServiceIcon } from "@/lib/serviceIcons";
 
 const emptyForm = {
@@ -15,8 +14,7 @@ const emptyForm = {
   showOnHome: true,
 };
 
-export default function AdminDashboard() {
-  const router = useRouter();
+export default function AdminServicesPage() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -92,50 +90,23 @@ export default function AdminDashboard() {
     loadServices();
   }
 
-  async function handleLogout() {
-    await fetch("/api/admin/logout", { method: "POST" });
-    router.push("/admin/login");
-    router.refresh();
-  }
-
   return (
     <div>
-      <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
-        <div className="flex items-center gap-3">
-          <span className="relative block h-10 w-32">
-            <Image src="/logo.png" alt="Arrive Safely" fill className="object-contain" sizes="128px" />
-          </span>
-          <span className="font-heading text-sm font-bold uppercase tracking-wide text-deep-navy">
-            Admin Panel
-          </span>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-2 font-heading text-sm font-semibold uppercase text-muted transition-colors hover:text-brand-red"
-        >
-          <LogOut size={16} /> Log Out
-        </button>
-      </header>
-
-      <main className="container-page py-10">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="font-heading text-2xl font-bold uppercase text-deep-navy">
-              Services
-            </h1>
-            <p className="mt-1 text-sm text-muted">
-              Manage the services shown on the Home and Services pages.
-            </p>
-          </div>
+      <AdminPageHeader
+        title="Services"
+        description="Manage the services shown on the Home and Services pages."
+        action={
           <button
             onClick={openCreate}
             className="btn-red inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm"
           >
             <Plus size={16} /> Add Service
           </button>
-        </div>
+        }
+      />
 
-        <div className="mt-8 overflow-hidden rounded-sm border border-slate-200 bg-white">
+      <main className="container-page py-8">
+        <div className="overflow-hidden rounded-sm border border-slate-200 bg-white">
           {loading ? (
             <p className="p-8 text-center text-sm text-muted">Loading services...</p>
           ) : services.length === 0 ? (

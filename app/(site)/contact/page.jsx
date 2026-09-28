@@ -1,45 +1,49 @@
 import { Phone, Mail, Headset, MapPin } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
+import { getSettings } from "@/lib/getSettings";
+import { telHref } from "@/lib/phone";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Contact",
   description:
-    "Contact Arrive Safely for trucking, contractor delivery, and logistics support. Call +1 475 208-1499 or send us a message.",
+    "Contact Arrive Safely for trucking, contractor delivery, and logistics support. Reach out by phone or send us a message.",
 };
 
-const ADDRESS = "390 Shelton Ave, Shelton, CT 06484";
+export default async function ContactPage() {
+  const settings = await getSettings();
 
-const cards = [
-  {
-    icon: Phone,
-    title: "Phone",
-    lines: ["+1 475 208-1499"],
-    href: "tel:14752081499",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    lines: ["arrivesafelyllc@gmail.com"],
-    href: "mailto:arrivesafelyllc@gmail.com",
-  },
-  {
-    icon: MapPin,
-    title: "Address",
-    lines: [ADDRESS],
-    href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`,
-  },
-  {
-    icon: Headset,
-    title: "Service Support",
-    lines: [
-      "Transportation scheduling, delivery timelines,",
-      "contractor coordination, and customer support.",
-    ],
-  },
-];
+  const cards = [
+    {
+      icon: Phone,
+      title: "Phone",
+      lines: [settings.phone],
+      href: telHref(settings.phone),
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      lines: [settings.email],
+      href: `mailto:${settings.email}`,
+    },
+    {
+      icon: MapPin,
+      title: "Address",
+      lines: [settings.address],
+      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`,
+    },
+    {
+      icon: Headset,
+      title: "Service Support",
+      lines: [
+        "Transportation scheduling, delivery timelines,",
+        "contractor coordination, and customer support.",
+      ],
+    },
+  ];
 
-export default function ContactPage() {
   return (
     <>
       <PageHero
@@ -81,7 +85,7 @@ export default function ContactPage() {
           <div className="overflow-hidden rounded-sm border border-slate-200 shadow-sm">
             <iframe
               title="Arrive Safely location"
-              src={`https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&output=embed`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed`}
               width="100%"
               height="380"
               loading="lazy"
