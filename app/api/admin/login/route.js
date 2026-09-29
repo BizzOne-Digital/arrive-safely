@@ -1,17 +1,26 @@
 import { NextResponse } from "next/server";
-import { createSessionToken, COOKIE_NAME, MAX_AGE_SECONDS } from "@/lib/auth";
+import { createSessionToken, verifyPassword, COOKIE_NAME, MAX_AGE_SECONDS } from "@/lib/auth";
+import { dbConnect } from "@/lib/mongodb";
+import Setting from "@/models/Setting";
 
 export async function POST(request) {
   const { password } = await request.json();
 
-  if (!process.env.ADMIN_PASSWORD) {
+  await dbConnect();
+  const setting = await Setting.findOne();
+
+  const valid = setting?.passwordHash
+    ? verifyPassword(password, setting.passwordHash)
+    : password === process.env.ADMIN_PASSWORD;
+
+  if (!process.env.ADMIN_PASSWORD && !setting?.passwordHash) {
     return NextResponse.json(
       { error: "Admin password is not configured" },
       { status: 500 }
     );
   }
 
-  if (password !== process.env.ADMIN_PASSWORD) {
+  if (!valid) {
     return NextResponse.json({ error: "Incorrect password" }, { status: 401 });
   }
 

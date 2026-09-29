@@ -12,6 +12,7 @@ const SettingSchema = new mongoose.Schema(
       type: String,
       default: "Trusted Transportation & Delivery Solutions",
     },
+    passwordHash: { type: String, default: null },
   },
   { timestamps: true }
 );
